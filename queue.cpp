@@ -12,8 +12,7 @@ bool isEmpty(const Queue* q) {
 
 bool isFull(const Queue* q) {
     if (isEmpty(q)) return false;
-    
-    // PERBAIKAN DI SINI: Wajib pakai const int* karena q adalah const
+
     const int* next_rear = q->data + ((q->rear - q->data + 1) % MAX);
     
     return next_rear == q->front;

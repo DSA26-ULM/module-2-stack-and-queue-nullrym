@@ -1,47 +1,40 @@
 #include "queue.h"
-#include <stdexcept>
 
 void init(Queue* q) {
-    q->front = nullptr;
-    q->rear = nullptr;
+    q->front = q->data;
+    q->rear = q->data - 1;
 }
 
 bool isEmpty(const Queue* q) {
-    return q->front == nullptr;
+    return q->front > q->rear;
 }
 
 bool isFull(const Queue* q) {
-    if (isEmpty(q)) return false;
-    return q->rear == &(q->data[MAX - 1]);
+    return q->rear == q->data + MAX - 1;
 }
 
 void enqueue(Queue* q, int value) {
-    if (isFull(q)) throw std::runtime_error("Queue Full");
-    
-    if (isEmpty(q)) {
-        q->front = &(q->data[0]);
-        q->rear = &(q->data[0]);
-    } else {
-        q->rear++;
+    if (!isFull(q)) {
+        *(++q->rear) = value;
     }
-    *(q->rear) = value;
 }
 
 void dequeue(Queue* q) {
-    if (isEmpty(q)) throw std::runtime_error("Queue Empty");
-    if (q->front == q->rear) {
-        init(q);
-    } else {
+    if (!isEmpty(q)) {
         q->front++;
     }
 }
 
 int front(const Queue* q) {
-    if (isEmpty(q)) throw std::runtime_error("Queue Kosong");
-    return *(q->front);
+    if (!isEmpty(q)) {
+        return *q->front;
+    }
+    return -1; // or handle error appropriately
 }
 
 int back(const Queue* q) {
-    if (isEmpty(q)) throw std::runtime_error("Queue Kosong");
-    return *(q->rear);
+    if (!isEmpty(q)) {
+        return *q->rear;
+    }
+    return -1; // or handle error appropriately
 }

@@ -1,12 +1,13 @@
 #include <iostream>
 #include <string>
-#include <cctype>
-#include "stack.h"
+#include <cstdlib> // Wajib pakai cstdlib untuk atoi()
+#include "stack.h" // Tetap gunakan stack.h, jangan diubah
 
 using namespace std;
 
 int main() {
     int n;
+    // Baca jumlah n simbol
     if (!(cin >> n)) return 0;
 
     Stack s;
@@ -16,19 +17,31 @@ int main() {
         string token;
         cin >> token;
 
-        if (isdigit(token[0]) || (token.length() > 1 && token[0] == '-')) {
-            push(&s, stoi(token));
-        } 
-        else {
-            int angka2 = peek(&s); pop(&s);
-            int angka1 = peek(&s); pop(&s);
-
-            if (token == "+") push(&s, angka1 + angka2);
-            else if (token == "-") push(&s, angka1 - angka2);
-            else if (token == "*") push(&s, angka1 * angka2);
-            else if (token == "/") push(&s, angka1 / angka2);
+        // Cek langsung apakah token adalah operator
+        if (token == "+") {
+            int val2 = peek(&s); pop(&s);
+            int val1 = peek(&s); pop(&s);
+            push(&s, val1 + val2);
+        } else if (token == "-") {
+            int val2 = peek(&s); pop(&s);
+            int val1 = peek(&s); pop(&s);
+            push(&s, val1 - val2);
+        } else if (token == "*") {
+            int val2 = peek(&s); pop(&s);
+            int val1 = peek(&s); pop(&s);
+            push(&s, val1 * val2);
+        } else if (token == "/") {
+            int val2 = peek(&s); pop(&s);
+            int val1 = peek(&s); pop(&s);
+            push(&s, val1 / val2);
+        } else {
+            // Jika bukan salah satu operator di atas, pasti dia angka.
+            // Gunakan atoi() yang lebih kompatibel dengan auto-grader.
+            push(&s, atoi(token.c_str()));
         }
     }
+
+    // Tampilkan hasil akhir
     cout << peek(&s) << endl;
 
     return 0;

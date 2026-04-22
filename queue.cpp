@@ -18,7 +18,7 @@ bool isFull(const Queue* q) {
     } else {
         next_rear = q->rear + 1;
     }
-    
+
     return next_rear == q->front;
 }
 

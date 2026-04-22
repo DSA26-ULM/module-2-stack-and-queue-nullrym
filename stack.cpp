@@ -28,5 +28,5 @@ int peek(const Stack* s) {
     if (!isEmpty(s)) {
         return *s->top;
     }
-    return -1;
+    return -1; // or handle error appropriately
 }

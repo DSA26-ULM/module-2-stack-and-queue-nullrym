@@ -6,33 +6,31 @@ using namespace std;
 int main() {
     int n, k;
     if (!(cin >> n >> k)) return 0;
-    int A[105];
-    for (int i = 0; i < n; i++) {
-        cin >> A[i];
-    }
+    if (k < 1) return 0;
 
     Queue q;
     init(&q);
+
+    int sum = 0;
     
-    int total = 0;
-
     for (int i = 0; i < n; i++) {
-        enqueue(&q, A[i]);
-        total += A[i];
-
+        int x;
+        cin >> x;
+        
+        enqueue(&q, x);
+        sum += x;
+        
         if (i >= k) {
-            total -= front(&q);
+            sum -= front(&q);
             dequeue(&q);
         }
-
+        
         if (i >= k - 1) {
-            cout << total;
-            if (i < n - 1) {
-                cout << " ";
-            }
+            if (i > k - 1) cout << " ";
+            cout << sum;
         }
     }
     cout << endl;
-
+    
     return 0;
 }

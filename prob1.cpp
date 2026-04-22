@@ -18,16 +18,18 @@ int main() {
 
         if (isdigit(token[0]) || (token.length() > 1 && token[0] == '-')) {
             push(&s, stoi(token));
-        } else {
-            int val2 = peek(&s); pop(&s);
-            int val1 = peek(&s); pop(&s);
-            if (token == "+") push(&s, val1 + val2);
-            else if (token == "-") push(&s, val1 - val2);
-            else if (token == "*") push(&s, val1 * val2);
-            else if (token == "/") push(&s, val1 / val2);
+        } 
+        else {
+            int angka2 = peek(&s); pop(&s);
+            int angka1 = peek(&s); pop(&s);
+
+            if (token == "+") push(&s, angka1 + angka2);
+            else if (token == "-") push(&s, angka1 - angka2);
+            else if (token == "*") push(&s, angka1 * angka2);
+            else if (token == "/") push(&s, angka1 / angka2);
         }
     }
-
     cout << peek(&s) << endl;
+
     return 0;
 }

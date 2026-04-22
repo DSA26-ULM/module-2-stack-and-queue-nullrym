@@ -6,6 +6,7 @@ using namespace std;
 int main() {
     int n, k;
     if (!(cin >> n >> k)) return 0;
+
     int A[105];
     for (int i = 0; i < n; i++) {
         cin >> A[i];
